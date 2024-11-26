@@ -1,0 +1,11 @@
+* {
+    font-family: sans-serif;
+}
+
+.background {
+    background-repeat: repeat;
+    background-position: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)), url("images/cover-art.jpg");
+    height: 100vh;
+    background-size: contain;
+}
