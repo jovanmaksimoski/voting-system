@@ -90,7 +90,6 @@ include("navbar.php");
                     <input type="password" class="form-control" id="password" name="password">
                 </div>
 
-                <!-- Submit Button -->
                 <button type="submit" class="btn btn-danger">Register</button>
             </form>
         </div>

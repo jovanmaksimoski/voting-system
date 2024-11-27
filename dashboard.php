@@ -1,9 +1,38 @@
 <?php
-session_start();
 
-include("navbar.php");
 
-$userName = $_SESSION['user_name'];
+    use Classes\Categories;
+    use Classes\Employees;
+    use Classes\Votes;
+
+    require_once ("Classes/Employees.php");
+    require_once ("Classes/Categories.php");
+    require_once ("Classes/Votes.php");
+
+    include("navbar.php");
+
+    $categories = new Categories();
+    $categoryList = $categories->getCategoryName();
+
+    $employees = new Employees();
+    $employeesList = $employees->getEmployeeName();
+
+    $userName = $_SESSION['user_name'];
+
+    $voterId = $_POST['voter_id'];
+    $nomineeId = $_POST['nominee_id'];
+    $categoryId = $_POST['category_id'];
+    $comment = $_POST['comment'] ?? '';
+
+    $vote = new Votes();
+    $success = $vote->storeVote($voterId, $nomineeId, $categoryId, $comment);
+
+    if ($success) {
+        echo "Vote submitted successfully!";
+    } else {
+        echo "Failed to submit the vote.";
+    }
+
 ?>
 
 <div class="background py-5 mt-4 d-flex justify-content-center align-items-start">
@@ -25,26 +54,53 @@ $userName = $_SESSION['user_name'];
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body bg-info p-5">
-                            <form action="" method="">
+
+                            <form action="dashboard.php" method="POST">
                                 <div class="mb-3">
-                                    <label for="message-text" class="col-form-label text-white fw-bold">Employee</label>
-                                    <select class="form-control" id="message-text"></select>
+                                    <label for="voter_id" class="col-form-label text-white fw-bold">Voter</label>
+                                    <select class="form-control" id="voter_id" name="voter_id">
+                                        <?php foreach ($employeesList as $employee): ?>
+                                            <option value="<?= htmlspecialchars($employee['id']); ?>">
+                                                <?= htmlspecialchars($employee['name']); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="message-text" class="col-form-label text-white fw-bold">Category</label>
-                                    <select class="form-control" id="message-text"></select>
+                                    <label for="nominee_id" class="col-form-label text-white fw-bold">Nominee</label>
+                                    <select class="form-control" id="nominee_id" name="nominee_id">
+                                        <?php foreach ($employeesList as $employee): ?>
+                                            <option value="<?= htmlspecialchars($employee['id']); ?>">
+                                                <?= htmlspecialchars($employee['name']); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="message-text" class="col-form-label text-white fw-bold">Comment</label>
-                                    <textarea class="form-control" id="message-text"></textarea>
+                                    <label for="category_id" class="col-form-label text-white fw-bold">Category</label>
+                                    <select class="form-control" id="category_id" name="category_id">
+                                        <?php foreach ($categoryList as $category): ?>
+                                            <option value="<?= htmlspecialchars($category['id']); ?>">
+                                                <?= htmlspecialchars($category['name']); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
+
+                                <div class="mb-3">
+                                    <label for="comment" class="col-form-label text-white fw-bold">Comment</label>
+                                    <textarea class="form-control" id="comment" name="comment"></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-light">Vote</button>
                             </form>
+
                         </div>
                         <div class="modal-footer bg-info">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-light">Vote</button>
+                            <button type="submit" class="btn btn-light">Vote</button>
                         </div>
                     </div>
                 </div>

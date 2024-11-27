@@ -1,6 +1,8 @@
 <?php
 
 namespace Classes;
+use PDO;
+
 session_start();
 
 require_once ("DbConnection.php");
@@ -57,5 +59,17 @@ class Employees extends DbConnection
         } catch (\PDOException $e) {
             return "Error: " . $e->getMessage();
         }
+    }
+
+    public function getEmployeeName() {
+        $conn = $this->getDbConnection();
+
+        $query = "SELECT id, name FROM employees";
+        $statement = $conn->prepare($query);
+        $statement->execute();
+
+        $employees = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $employees;
     }
 }
