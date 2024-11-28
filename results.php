@@ -18,11 +18,11 @@
 
     ?>
 
-<div class="background d-flex justify-content-center align-items-center ">
+<div class="container-fluid background d-flex justify-content-center align-items-center ">
     <div class="row">
-        <div class="col text-center mt-5 ">
+        <div class="col-12 text-center mt-5 text-center ">
 
-                <table class="table table-bordered   " style="width; height: auto; margin: auto;">
+                <table class="table table-bordered   ">
                     <thead class="table-info">
                     <tr class="text-info">
                         <th scope="col">#</th>
@@ -30,6 +30,8 @@
                         <th scope="col">Nominee Name</th>
                         <th scope="col">Category</th>
                         <th scope="col">Comment</th>
+                        <th scope="col">Created At</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -40,6 +42,8 @@
                             <td><?= htmlspecialchars($vote['nominee_name']) ?></td>
                             <td><?= htmlspecialchars($vote['category_name']) ?></td>
                             <td><?= htmlspecialchars($vote['comment']) ?></td>
+                            <td><?= htmlspecialchars($vote['created_at']) ?></td>
+
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

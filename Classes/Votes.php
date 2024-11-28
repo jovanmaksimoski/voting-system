@@ -51,7 +51,8 @@ class Votes
                         e1.name AS voter_name, 
                         e2.name AS nominee_name, 
                         c.name AS category_name, 
-                        v.comment 
+                        v.comment,
+                        v.created_at
                     FROM votes v
                     INNER JOIN employees e1 ON v.voter_id = e1.id
                     INNER JOIN employees e2 ON v.nominee_id = e2.id

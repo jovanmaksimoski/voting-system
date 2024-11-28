@@ -3,8 +3,6 @@
 namespace Classes;
 
 
-// database connection
-
 class DbConnection
 {
     const  DB_HOSTNAME = 'localhost';
