@@ -1,0 +1,9 @@
+
+
+---------------------------------- VOTING SYSTEM APP --------------------------------------------
+
+- This app was made with PHP 8.3
+- In order to use this app you will need to download PHP and XAMPP Control Panel
+- Import the repository in xampp/htdocs
+- Import the voting_system.sql file in PHPmyAdmin
+- Start Apache Server and enter the name of the repository in the url.

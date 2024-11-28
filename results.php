@@ -2,24 +2,29 @@
 <?php
 
     use Classes\Votes;
+    use Classes\Categories;
 
+
+    require_once ("Classes/Categories.php");
     require_once ("Classes/Votes.php");
     require_once("Classes/DbConnection.php");
 
     include ("navbar.php");
 
     $votes = new Votes();
-    $allVotes = $votes->getAllVotes()
+    $allVotes = $votes->getAllVotes();
+
+
 
     ?>
 
-<div class="background d-flex justify-content-center align-items-center vh-100">
-    <a class="btn btn-light" href="dashboard.php">Back to voting</a>
+<div class="background d-flex justify-content-center align-items-center ">
     <div class="row">
-        <div class="col text-center">
-                <table class="table table-striped" style="width: 800px; height: auto; margin: auto;">
-                    <thead>
-                    <tr>
+        <div class="col text-center mt-5 ">
+
+                <table class="table table-bordered   " style="width; height: auto; margin: auto;">
+                    <thead class="table-info">
+                    <tr class="text-info">
                         <th scope="col">#</th>
                         <th scope="col">Voter Name</th>
                         <th scope="col">Nominee Name</th>
@@ -40,7 +45,7 @@
                     </tbody>
                 </table>
 
-
+            <a class="btn btn-light mt-2" href="dashboard.php">Back to voting</a>
         </div>
     </div>
 </div>

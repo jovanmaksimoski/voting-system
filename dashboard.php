@@ -18,16 +18,24 @@
 
     $userName = $_SESSION['user_name'];
 
-    $voterId = ['voter_id'];
-    $nomineeId = ['nominee_id'];
-    $categoryId = ['category_id'];
-    $comment = ['comment'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $voterId = $_POST['voter_id'] ?? null;
+    $nomineeId = $_POST['nominee_id'] ?? null;
+    $categoryId = $_POST['category_id'] ?? null;
+    $comment = $_POST['comment'] ?? '';
 
-
-    $vote = new Votes();
-    $success = $vote->storeVote($voterId, $nomineeId, $categoryId, $comment);
-
-
+    if ($voterId && $nomineeId && $categoryId) {
+        $vote = new Votes();
+        $success = $vote->storeVote($voterId, $nomineeId, $categoryId, $comment);
+        if ($success) {
+            echo "Vote successfully stored!";
+        } else {
+            echo "Failed to store vote. Please try again.";
+        }
+    } else {
+        echo "All fields are required.";
+    }
+}
 
 ?>
 

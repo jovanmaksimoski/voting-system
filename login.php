@@ -1,44 +1,44 @@
 <?php
 
-require_once 'Classes/DbConnection.php';
-require_once 'Classes/Employees.php';
+    require_once 'Classes/DbConnection.php';
+    require_once 'Classes/Employees.php';
 
-use Classes\DbConnection;
-use Classes\Employees;
+    use Classes\DbConnection;
+    use Classes\Employees;
 
-include("navbar.php");
+    include("navbar.php");
 
-$errors = [];
+    $errors = [];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
+        $email = trim($_POST['email']);
+        $password = trim($_POST['password']);
 
-    if (empty($email)) {
-        $errors[] = "Email is required.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email format.";
-    }
+        if (empty($email)) {
+            $errors[] = "Email is required.";
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors[] = "Invalid email format.";
+        }
 
-    if (empty($password)) {
-        $errors[] = "Password is required.";
-    }
+        if (empty($password)) {
+            $errors[] = "Password is required.";
+        }
 
-    if (empty($errors)) {
-        $dbConnection = (new DbConnection())->getDbConnection();
-        $employees = new Employees($dbConnection);
+        if (empty($errors)) {
+            $dbConnection = (new DbConnection())->getDbConnection();
+            $employees = new Employees($dbConnection);
 
-        $result = $employees->login($email, $password);
+            $result = $employees->login($email, $password);
 
-        if ($result === true) {
-            header("Location: ./dashboard.php");
-            exit;
-        } else {
-            $errors[] = $result;
+            if ($result === true) {
+                header("Location: ./dashboard.php");
+                exit;
+            } else {
+                $errors[] = $result;
+            }
         }
     }
-}
 ?>
 
 <div class="background">
@@ -59,11 +59,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <div class="mb-3">
                     <label for="email" class="form-label text-light">Email address</label>
-                    <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email ?? ''); ?>">
+                    <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email ?? ''); ?>" placeholder="Enter your email">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label text-light">Password</label>
-                    <input type="password" class="form-control" id="password" name="password">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
                 </div>
 
                 <button type="submit" class="btn btn-danger">Log In</button>
